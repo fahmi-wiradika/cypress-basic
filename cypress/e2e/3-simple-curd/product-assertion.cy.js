@@ -1,6 +1,7 @@
 it('my second test', () => {
     cy.visit('/')
     
+    // Predefined products to assert
     const products = [
         {
             identifier: '6911b85be57d001e5a03735f',
@@ -19,7 +20,7 @@ it('my second test', () => {
             }
         },
         {
-            identifier: 'IDR 125.000,00',
+            identifier: 'IDR 123.453,21',
             assertions: {
                 id: '66715895853abca66176d03a',
                 name: 'Pizza',
@@ -28,6 +29,7 @@ it('my second test', () => {
         }
     ]
 
+    // Assert each product's details
     products.forEach(product => {
         cy.assertProductDetails(product.identifier, product.assertions)
     })
