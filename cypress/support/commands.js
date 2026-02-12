@@ -40,6 +40,27 @@ Cypress.Commands.add('clickProductButton', (productId, buttonClass) => {
         })
 })
 
+Cypress.Commands.add('addProduct', (name, price, quantity) => {
+    cy.get('#productName').type(name)
+    cy.get('#productPrice').type(price)
+    cy.get('#productQuantity').type(quantity)
+    cy.get('button.btn-primary').click()
+})
+
+Cypress.Commands.add('updateProduct', (productId, newName, newPrice, newQuantity) => {
+    cy.clickProductButton(productId, '.btn-update')
+    if (newName) {
+        cy.get('#updateName').clear().type(newName)
+    }
+    if (newPrice) {
+        cy.get('#updatePrice').clear().type(newPrice)
+    }
+    if (newQuantity) {
+        cy.get('#updateQuantity').clear().type(newQuantity)
+    }
+    cy.get('#updateModal button.btn-update').click()
+})
+
 Cypress.Commands.add('assertProductDetails', (identifier, expectedValues) => {
     cy.contains('#productList > div', identifier).within(() => {
         if (expectedValues.id) {

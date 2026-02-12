@@ -1,0 +1,37 @@
+[
+  {
+  "name": "Bakso Malang",
+  "price": "15000",
+  "quantity": "2",
+  "updatedProduct":
+  { 
+    "Quantity": "3"
+  }
+  },{
+    "name": "Ketoprak",
+    "price": "18000",
+    "quantity": "3",
+    "updatedProduct":
+    { 
+      "Price": "25000"
+    }
+  },{
+    "name": "Martabak",
+    "price": "25000",
+    "quantity": "2",
+    "updatedProduct":
+    { 
+      "Name": "Martabak Manis"
+    }
+  },{
+    "name": "Pizza Tuna",
+    "price": "250000",
+    "quantity": "1",
+    "updatedProduct":
+    { 
+      "Quantity": "2",
+      "Price": "150000",
+      "Name": "Pizza Pepperoni"
+    }
+  }
+]
