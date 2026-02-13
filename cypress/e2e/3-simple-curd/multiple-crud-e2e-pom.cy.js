@@ -10,10 +10,10 @@ describe('Product CRUD Operations - Multiple Products (Data-Driven)', () => {
             products = data
         })
         ProductPage.visit()
-        ProductPage.verifyProductListLoaded()
     })
-
+    
     it('should complete CRUD workflow for each product', () => {
+        ProductPage.verifyProductListLoaded()
         // Iterate through each product in the fixture
         cy.wrap(products).each((product, index) => {
             // BEST PRACTICE: Declare productId inside loop for each product

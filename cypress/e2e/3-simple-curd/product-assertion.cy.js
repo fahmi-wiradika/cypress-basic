@@ -9,10 +9,10 @@ describe('Product Assertions', () => {
             products = data
         })
         ProductPage.visit()
-        ProductPage.verifyProductListLoaded()
     })
-
+    
     it('Assert Product Details', () => {
+        ProductPage.verifyProductListLoaded()
         // Assert each product's details
         products.forEach(product => {
             ProductPage.assertProductDetails(product.identifier, product.assertions)
