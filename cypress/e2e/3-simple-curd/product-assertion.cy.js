@@ -1,3 +1,5 @@
+import ProductPage from '../../pom/crud-page.js'
+
 describe('Product Assertions', () => {
     let products = []
 
@@ -6,14 +8,14 @@ describe('Product Assertions', () => {
         cy.fixture('products').then((data) => {
             products = data
         })
-        cy.visit('/')
-        cy.get('#productList > div').should('be.visible')
+        ProductPage.visit()
+        ProductPage.verifyProductListLoaded()
     })
 
     it('Assert Product Details', () => {
         // Assert each product's details
         products.forEach(product => {
-            cy.assertProductDetails(product.identifier, product.assertions)
+            ProductPage.assertProductDetails(product.identifier, product.assertions)
         })
     })
 

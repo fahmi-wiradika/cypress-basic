@@ -1,3 +1,5 @@
+import ProductPage from '../../pom/crud-page.js'
+
 describe('Product CRUD Operations', () => {
     // Store productId and product data
     let productId = ''
@@ -8,17 +10,20 @@ describe('Product CRUD Operations', () => {
         cy.fixture('singleProduct').then((data) => {
             productData = data
         })
-        cy.visit('/')
+        ProductPage.visit()
+        ProductPage.verifyProductListLoaded()
     })
 
     it('should add a new product and capture the ID', () => {
         // Add new product using data from fixtures
-        cy.addProduct(productData.name, 
-            productData.price, 
-            productData.quantity)    
+        ProductPage.addProduct(
+            productData.name,
+            productData.price,
+            productData.quantity
+        )
 
         // Capture and store productId for use in other tests
-        cy.getIdFromNotification().then((id) => {
+        ProductPage.getProductIdFromNotification().then((id) => {
             productId = id
             cy.log(`Product added with ID: ${productId}`)
         })
@@ -30,13 +35,15 @@ describe('Product CRUD Operations', () => {
         cy.log(`Using productId: ${productId}`)
 
         // Update product with the stored ID
-        cy.updateProduct(productId, 
-            productData.updatedProduct.Name, 
-            productData.updatedProduct.Price, 
-            productData.updatedProduct.Quantity)
+        ProductPage.updateProduct(
+            productId,
+            productData.updatedProduct.Name,
+            productData.updatedProduct.Price,
+            productData.updatedProduct.Quantity
+        )
 
         // Verify update success
-        cy.get('.notification').should('be.visible')
+        ProductPage.verifyNotificationVisible()
     })
 
     it('should delete the product using same productId', () => {
@@ -45,11 +52,10 @@ describe('Product CRUD Operations', () => {
         cy.log(`Using productId: ${productId}`)
 
         // Delete product with the stored ID
-        cy.clickProductButton(productId, '.btn-delete')
-        cy.get('#deleteModal button.btn-delete').click()
+        ProductPage.deleteProduct(productId)
 
         // Verify deletion success
-        cy.get('.notification').should('be.visible')
-        cy.get('.notification').should('not.exist')
+        ProductPage.verifyNotificationVisible()
+        ProductPage.waitNotificationToDisappear()
     })
 })
