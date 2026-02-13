@@ -1,13 +1,17 @@
 {
   "dependencies": {
-    "cypress": "^15.10.0"
+    "cypress": "^15.10.0",
+    "cypress-parallel": "^0.15.0",
+    "dotenv": "^17.3.1"
   },
   "name": "tau-cypress-basic",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cypress open",
+    "test:headless": "cypress run",
+    "cy:parallel": "cypress-parallel -d cypress/e2e/3-simple-curd/ -t 5 -s test:headless"
   },
   "keywords": [],
   "author": "",
