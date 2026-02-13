@@ -7,6 +7,7 @@ describe('Product Assertions', () => {
             products = data
         })
         cy.visit('/')
+        cy.get('#productList > div').should('be.visible')
     })
 
     it('Assert Product Details', () => {

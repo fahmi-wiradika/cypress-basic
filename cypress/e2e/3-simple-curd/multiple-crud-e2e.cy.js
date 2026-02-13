@@ -8,13 +8,14 @@ describe('Product CRUD Operations - Multiple Products (Data-Driven)', () => {
             products = data
         })
         cy.visit('/')
+        cy.get('#productList > div').should('be.visible')
     })
-
+    
     it('should complete CRUD workflow for each product', () => {
         // Iterate through each product in the fixture
         cy.wrap(products).each((product, index) => {
             // BEST PRACTICE: Declare productId inside loop for each product
-            let productId = ''
+            let productId = '' // Declare productId variable to store ID for each product during iteration
             
             cy.log(`\n========== Testing Product ${index + 1}/${products.length}: ${product.name} ==========`)
 
@@ -45,8 +46,9 @@ describe('Product CRUD Operations - Multiple Products (Data-Driven)', () => {
                 cy.clickProductButton(productId, '.btn-delete')
                 cy.get('#deleteModal button.btn-delete').click()
 
-                // Verify deletion success
+                // Wait for deletion notification to appear and then disappear
                 cy.get('.notification').should('be.visible')
+                cy.get('.notification').should('not.exist')
                 cy.log(`✓ Product deleted successfully\n`)
             })
         })

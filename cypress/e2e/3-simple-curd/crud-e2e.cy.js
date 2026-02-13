@@ -50,5 +50,6 @@ describe('Product CRUD Operations', () => {
 
         // Verify deletion success
         cy.get('.notification').should('be.visible')
+        cy.get('.notification').should('not.exist')
     })
 })
