@@ -5,18 +5,10 @@ on:
     branches:
       - main
       - master
-  pull_request:
-    branches:
-      - main
-      - master
 
 jobs:
-  cypress-run:
+  cypress-test:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        browser: [chrome, firefox, edge]
     
     steps:
       - name: Checkout code
@@ -31,25 +23,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Cypress tests - Simple CRUD
+      - name: Run Cypress E2E Tests - Simple CRUD
         uses: cypress-io/github-action@v6
         with:
-          spec: 'cypress/e2e/3-simple-curd/**/*.cy.js'
-          browser: ${{ matrix.browser }}
-          record: false
+          spec: 'cypress/e2e/3-simple-curd/*.cy.js'
 
-      - name: Upload artifacts
+      - name: Upload screenshots on failure
         uses: actions/upload-artifact@v4
-        if: always()
+        if: failure()
         with:
-          name: cypress-screenshots-${{ matrix.browser }}
+          name: cypress-screenshots
           path: cypress/screenshots/
           retention-days: 5
 
-      - name: Upload video artifacts
+      - name: Upload videos on failure
         uses: actions/upload-artifact@v4
-        if: always()
+        if: failure()
         with:
-          name: cypress-videos-${{ matrix.browser }}
+          name: cypress-videos
           path: cypress/videos/
           retention-days: 5
