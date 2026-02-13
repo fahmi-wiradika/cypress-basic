@@ -10,6 +10,7 @@ module.exports = defineConfig({
     baseUrl: 'https://simple-crud-apps.vercel.app', 
     viewportHeight: 945,
     viewportWidth: 1670, 
+    defaultCommandTimeout: 10000,
     experimentalStudio: true,
   },
 });

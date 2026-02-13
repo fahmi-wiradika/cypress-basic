@@ -11,10 +11,10 @@ describe('Product CRUD Operations', () => {
             productData = data
         })
         ProductPage.visit()
-        ProductPage.verifyProductListLoaded()
     })
-
+    
     it('should add a new product and capture the ID', () => {
+        ProductPage.verifyProductListLoaded()
         // Add new product using data from fixtures
         ProductPage.addProduct(
             productData.name,
