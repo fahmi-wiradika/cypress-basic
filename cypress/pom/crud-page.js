@@ -119,7 +119,7 @@ class ProductPage {
      * @returns {Cypress.Chainable<Element>}
      */
     verifyProductListLoaded() {
-        return cy.get(this.selectors.productList).should('be.visible')
+        return cy.get(this.selectors.productList).should('exist').and('be.visible')
     }
 
     /**
