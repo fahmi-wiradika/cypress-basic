@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@applitools/eyes-cypress": "^3.33.1",
     "cypress": "^15.10.0",
     "cypress-parallel": "^0.15.0",
     "dotenv": "^17.3.1"
