@@ -1,4 +1,4 @@
-import ProductPage from '../../pom/crud-page.js'
+import ProductPage from '../../../pom/crud-page.js'
 
 describe('Product CRUD Operations - Multiple Products (Data-Driven)', () => {
     // Store products from fixtures
@@ -24,6 +24,7 @@ describe('Product CRUD Operations - Multiple Products (Data-Driven)', () => {
             // ===== ADD PRODUCT =====
             cy.log(`Adding product: ${product.name}`)
             ProductPage.addProduct(product.name, product.price, product.quantity)
+            ProductPage.verifyNotificationVisible()
 
             // Capture productId - unique for each product
             ProductPage.getProductIdFromNotification().then((id) => {

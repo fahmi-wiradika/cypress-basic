@@ -26,7 +26,10 @@ class ProductPage {
      * Visit the product page
      */
     visit() {
+        cy.intercept('GET', '/api/products').as('getProducts')
         cy.visit('/')
+        cy.wait('@getProducts', { timeout: 10000 }).its('response.body').should('be.an', 'array')
+        cy.get(this.selectors.productList).should('exist').and('be.visible')
     }
 
     /**

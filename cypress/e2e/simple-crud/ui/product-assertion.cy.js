@@ -1,4 +1,4 @@
-import ProductPage from '../../pom/crud-page.js'
+import ProductPage from '../../../pom/crud-page.js'
 
 describe('Product Assertions', () => {
     let products = []

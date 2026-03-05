@@ -1,4 +1,4 @@
-import ProductPage from '../../pom/crud-page.js'
+import ProductPage from '../../../pom/crud-page.js'
 
 describe('Product CRUD Operations', () => {
     // Store productId and product data
@@ -14,7 +14,6 @@ describe('Product CRUD Operations', () => {
     })
     
     it('should add a new product and capture the ID', () => {
-        ProductPage.verifyProductListLoaded()
         // Add new product using data from fixtures
         ProductPage.addProduct(
             productData.name,
@@ -56,6 +55,6 @@ describe('Product CRUD Operations', () => {
 
         // Verify deletion success
         ProductPage.verifyNotificationVisible()
-        ProductPage.waitNotificationToDisappear()
+
     })
 })
