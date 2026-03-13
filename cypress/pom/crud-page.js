@@ -42,7 +42,10 @@ class ProductPage {
         cy.get(this.selectors.productName).type(name)
         cy.get(this.selectors.productPrice).type(price)
         cy.get(this.selectors.productQuantity).type(quantity)
+        
+        cy.intercept('POST','/api/products').as('addProduct')
         cy.get(this.selectors.addBtn).click()
+        cy.wait('@addProduct', { timeout: 10000 }).its('response.statusCode').should('eq', 200)
     }
 
     /**
@@ -77,7 +80,10 @@ class ProductPage {
             cy.get(this.selectors.updateQuantity).clear().type(newQuantity)
         }
         
+        cy.intercept('PUT','/api/products/*').as('updateProduct')
         cy.get(this.selectors.updateModalBtn).click()
+        cy.wait('@updateProduct', { timeout: 10000 }).its('response.statusCode').should('eq', 200)
+        
     }
 
     /**
@@ -86,7 +92,9 @@ class ProductPage {
      */
     deleteProduct(productId) {
         this.clickProductButton(productId, this.selectors.btnDelete)
+        cy.intercept('DELETE','api/products/*').as('deleteProduct')
         cy.get(this.selectors.deleteModalBtn).click()
+        cy.wait('@deleteProduct',{ timeout: 10000 }).its('response.statusCode').should('eq', 200)
     }
 
     /**
