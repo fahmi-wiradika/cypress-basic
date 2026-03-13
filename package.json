@@ -13,6 +13,7 @@
     "test": "cypress open",
     "test:prod:headless": "cypress run --env version=production",
     "cy:api": "cypress-parallel -d cypress/e2e/simple-crud/api/ -s test:prod:headless",
+    "cy:e2e": "cypress run --spec 'cypress/e2e/simple-crud/**/*.cy.js' --env version=production",
     "cy:full-e2e": "cypress-parallel -d cypress/e2e/simple-crud/ -t 6 -s test:prod:headless"
   },
   "keywords": [],

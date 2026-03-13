@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
@@ -26,8 +26,7 @@ jobs:
       - name: Run Cypress E2E Tests - Simple CRUD
         uses: cypress-io/github-action@v6
         with:
-          spec: 'cypress/e2e/simple-crud/**/*.cy.js'
-          command: npm run test:prod:headless
+          command: npm run cy:e2e
 
       - name: Upload screenshots on failure
         uses: actions/upload-artifact@v4
