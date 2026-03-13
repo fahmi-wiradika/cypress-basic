@@ -5,12 +5,29 @@ module.exports = defineConfig({
 
   e2e: {
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      on('task', {
+        sendNotification: () => {
+          console.log('Notification: API mocking test is running!')
+          return 'Notification: API mocking test is running!'
+        },
+      })
+
+      const version = config.env.version || 'development'
+      const envConfig = require(`./cypress/environment/${version}.json`)
+
+      // Apply Cypress config options directly to config object
+      config.baseUrl = envConfig.baseUrl
+      config.video = envConfig.video ?? config.video
+      config.screenshotOnRunFailure = envConfig.screenshotOnRunFailure ?? config.screenshotOnRunFailure
+      config.defaultCommandTimeout = envConfig.defaultCommandTimeout ?? config.defaultCommandTimeout
+
+      // Preserve version in env for reference
+      config.env = { version, ...envConfig }
+
+      return config
     },
-    baseUrl: 'https://simple-crud-apps.vercel.app', 
     viewportHeight: 945,
     viewportWidth: 1670, 
-    defaultCommandTimeout: 10000,
     experimentalStudio: true,
   },
 });

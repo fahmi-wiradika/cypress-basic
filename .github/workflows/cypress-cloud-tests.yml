@@ -27,6 +27,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           spec: 'cypress/e2e/simple-crud/**/*.cy.js'
+          command: npm run test:prod:headless
 
       - name: Upload screenshots on failure
         uses: actions/upload-artifact@v4
