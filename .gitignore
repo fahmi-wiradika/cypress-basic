@@ -1,6 +1,7 @@
 node_modules/
 .env
 cypress/screenshots/
+cypress/reports/
 parallel-weights.json
 runner-results/
 multi-reporter-config.json
