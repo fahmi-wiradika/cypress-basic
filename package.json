@@ -14,10 +14,19 @@
     "test:prod:headless": "cypress run --env version=production",
     "cy:api": "cypress-parallel -d cypress/e2e/simple-crud/api/ -s test:prod:headless",
     "cy:e2e": "cypress run --spec 'cypress/e2e/simple-crud/**/*.cy.js' --env version=production",
-    "cy:full-e2e": "cypress-parallel -d cypress/e2e/simple-crud/ -t 6 -s test:prod:headless"
+    "cy:full-e2e": "cypress-parallel -d cypress/e2e/simple-crud/ -t 6 -s test:prod:headless",
+    "report:merge": "mochawesome-merge \"cypress/reports/json/*.json\" -o cypress/reports/result.json",    
+    "report:generate": "marge cypress/reports/result.json --reportDir cypress/reports --reportFilename index --inline",    "report:clean": "rimraf cypress/reports",
+    "test-e2e:report": "npm run report:clean && npm run cy:e2e && npm run report:merge && npm run report:generate"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "devDependencies": {
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^5.1.1",
+    "mochawesome-report-generator": "^6.3.2",
+    "rimraf": "^6.1.3"
+  }
 }
