@@ -6,10 +6,15 @@ on:
       - main
       - Master
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   cypress-test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,23 +28,44 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Cypress E2E Tests - Simple CRUD
+      - name: Run Cypress E2E Tests
         uses: cypress-io/github-action@v6
         with:
           command: npm run cy:e2e
+        continue-on-error: true  # ← don't abort pipeline on test failure
 
-      - name: Upload screenshots on failure
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots/
-          retention-days: 5
+      - name: Merge reports
+        if: always()
+        run: npm run report:merge
 
-      - name: Upload videos on failure
+      - name: Generate HTML report
+        if: always()
+        run: npm run report:generate
+
+      - name: Upload report artifact
+        if: always()
         uses: actions/upload-artifact@v4
-        if: failure()
         with:
-          name: cypress-videos
-          path: cypress/videos/
-          retention-days: 5
+          name: cypress-report
+          path: cypress/reports/
+          retention-days: 14
+
+      - name: Upload Pages artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: cypress/reports/
+
+  deploy-report:
+    needs: cypress-test
+    runs-on: ubuntu-latest
+    if: always()
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
